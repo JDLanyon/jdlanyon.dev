@@ -2,118 +2,85 @@
   <a target="_blank" href="/JDLanyon_Resume.pdf" download class="btn-primary btn-scroll">Download PDF</a>
 </div>
 
-<div style="text-align: center;">
-  <h1>Jackson Lanyon</h1>
-  <h2>Software Engineer</h2>
-  <p><strong>Brisbane, Australia</strong></p>
-  <p class="print-only" style="padding-left: 16pt;"><strong>0401 532 009</strong></p>
+<div class="resume-header">
+
+# Jackson Lanyon
+## ***Software Engineer - Brisbane, Australia***
+
+[linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) - [github.com/JDLanyon](https://github.com/JDLanyon) - [jdlanyon.dev](https://jdlanyon.dev/) - [jlany9@hotmail.com](mailto:jlany9@hotmail.com)
+
 </div>
 
-<!-- On-screen: glitch links spread across the full page width -->
-<div class="no-print resume-links">
-  <GlitchLink href="https://www.linkedin.com/in/jdlanyon/">linkedin.com/in/jdlanyon</GlitchLink>
-  <GlitchLink href="https://github.com/JDLanyon">github.com/JDLanyon</GlitchLink>
-  <GlitchLink href="https://jdlanyon.dev/">jdlanyon.dev</GlitchLink>
-  <GlitchLink href="mailto:jlany9@hotmail.com">jlany9@hotmail.com</GlitchLink>
-</div>
-<!-- PDF export: plain anchors (GlitchLink is JS/CSS-only and hidden in print).
-     Uses a table because WeasyPrint handles tables reliably (flexbox space-between
-     can collapse to a vertical stack in print engines). -->
-<div class="print-only resume-links">
-  <table>
-    <tr>
-      <td style="text-align: left;"><a href="https://www.linkedin.com/in/jdlanyon/">linkedin.com/in/jdlanyon</a></td>
-      <td style="text-align: center;"><a href="https://github.com/JDLanyon">github.com/JDLanyon</a></td>
-      <td style="text-align: center;"><a href="https://jdlanyon.dev/">jdlanyon.dev</a></td>
-      <td style="text-align: right;"><a href="mailto:jlany9@hotmail.com">jlany9@hotmail.com</a></td>
-    </tr>
-  </table>
-</div>
-
-## Professional Summary
-Full-stack engineer with production experience in programming and motion graphics. I combine strong fundamentals in algorithms, databases, and system design with a motion designer's eye for visual polish, delivering software that's both functional and refined.
-I focus on clean, testable, scalable code with automated deployments.
+---
 
 ## Technical Skills
-**Languages:** HTML / CSS, TypeScript / JavaScript, Python, C#, Java, SQL
-**Frameworks & Libraries:** React, Next.js, Vue.js, Vite, Node.js, JavaFX, .NET
-**Tools & Platforms:** Git (GitHub & Gitea/Forgejo), Docker, Systemd, SQLite, MySQL, Cloudflare, VitePress, Godot, Unity
-**Practices:** REST API, Agile & Scrum, Git branching workflows, CI/CD (GitHub Actions)
+**Languages:** TypeScript / JavaScript, Python, C#, Java, HTML / CSS, SQL, Shell
+**Frameworks & Libraries:** React, Next.js, Vue 3, Vite, VitePress, Node.js, JavaFX, .NET
+**Data & APIs:** REST API integration, MySQL, SQLite, Pandas / NumPy, data pipelines
+**Tools & Platforms:** Git (GitHub & Forgejo), Docker, Linux (Arch / Debian), systemd, nginx, Cloudflare, GitHub Actions (CI/CD)
+**Practices:** Agile & Scrum, Git branching workflows, automated testing, responsive and accessible UI
 
 ## Work Experience
-### QUT - Business Process Improvement Office
-**Software Testing Engineer**
-*6‑month internship (2020) – Kelvin Grove, QUT*
-
-- Implemented automated testing frameworks using **Katalon and Selenium with Java**, reducing regression test execution time and accelerating sprint delivery cycles.
-- Transitioned legacy test scripts from Katalon’s `.groovy` files to **Selenium‑based Java tests** with 2 other engineers, eliminating the need for a complete rewrite and improving test maintainability.
-- Collaborated within an Agile team using **Git, Jira, and Microsoft Teams**, ensuring secure releases for staff and students through daily stand‑ups and regular sprint reviews.
-
 ### AQSeptence Group
 **Software Engineer**
-*6‑month internship (2021) – Geebung, QLD*
+*2021 - Geebung, QLD*
 
-- Engineered data‑processing tools in **Python (Pandas, NumPy), PowerShell, and VBA**, automating CSV parsing, Excel reformatting, and data sorting in order to automate manual data handling and improve workflow efficiency.
-- Recovered and migrated critical legacy data from **Lotus Notes** databases, preserving business continuity and ensuring data integrity during system transitions.
-- Designed a scheduled **information aggregator and backup system** using Python, which ran automatically every Friday at midnight, eliminating manual intervention and reducing the risk of data loss.
+- Engineered data-processing tools in **Python (Pandas, NumPy), PowerShell and VBA**, automating CSV parsing, Excel reformatting and data sorting to remove manual handling and improve workflow efficiency.
+- Recovered and migrated critical legacy data from **Lotus Notes** databases, preserving business continuity and data integrity during a system transition.
+- Designed a scheduled **information aggregator and backup system** in Python that ran automatically every Friday at midnight, eliminating manual intervention and reducing the risk of data loss.
 - Developed nested sorting algorithms for **compound part lists in Excel files**, enabling hierarchy visualisation and improving inventory management.
 
+### QUT - Business Process Improvement Office
+**Software Testing Engineer**
+*2020 - Kelvin Grove, QLD*
+
+- Implemented automated testing frameworks using **Katalon and Selenium with Java**, reducing regression test execution time and accelerating sprint delivery cycles.
+- Transitioned legacy test scripts from Katalon's `.groovy` files to **Selenium-based Java tests** with two other engineers, avoiding a complete rewrite and improving long-term test maintainability.
+- Collaborated within an Agile team using **Git, Jira and Microsoft Teams**, helping ensure secure releases for staff and students through daily stand-ups and sprint reviews.
+
+## Production Web Development
+> Ongoing independent engineering, self-directed alongside full-time study. All of the below is publicly verifiable on GitHub and deployed live.
+
+### [sausytime.com](https://github.com/JDLanyon/sausytime.com) - Designer Portfolio
+**Full-Stack Developer (solo)**
+*Next.js, TypeScript, React, Cloudflare Pages, GitHub Actions (2025 - 2026)*
+
+- Independently designed, built and shipped a **production website** in Next.js and TypeScript, now deployed to Cloudflare Pages through an automated GitHub Actions workflow.
+- Built a markdown-driven content pipeline with dynamic project routing and modals, and documented the architecture in GitHub issues to plan the roadmap.
+- Engineered responsive, accessible UI with CSS animations, dynamic theming and dark / light mode, and later migrated the app from self-managed hosting to Cloudflare Pages.
+
+### [jdlanyon.dev](https://github.com/JDLanyon/jdlanyon.dev) - Programmer Portfolio
+**Full-Stack Developer (solo)**
+*VitePress, Vue 3, TypeScript, GitHub Actions (2026)*
+
+- Built a production portfolio as a **VitePress + Vue 3 + TypeScript** static site, with custom components for project cards, modals and a markdown-driven blog.
+- Automated the build with a **GitHub Actions CI/CD pipeline** that pulls project content from GitHub at build time, replacing manual content updates.
+- Implemented a seeded pseudo-random animation system in Vue so server-rendered and client-rendered frames stay in sync, avoiding hydration mismatch.
+
 ## Projects
-### [sausytime.com](https://github.com/JDLanyon/sausytime.com)
-**Self hosted designer portfolio**
-*Next.js, TypeScript, Cloudflare, Debian, nginx*
-
-- Independently designed, built, and deployed a fully responsive production portfolio to Cloudflare, **maintaining an estimated 99.9% uptime** with self-hosted infrastructure and CI-based deployment using GitHub Actions.
-- Engineered a minimal monochrome UI with glitch animations, a typewriter, snappy buttons and dynamic theming, **achieving Lighthouse scores of 75+** on performance, accessibility, SEO and Best Practices.
-- Implemented project modals with dynamic routing, reducing page load time by ~40% versus full-page navigation, documenting the architecture in GitHub issues for roadmap planning.
-<div class="page-break"></div>
-
 ### [Task Tank](https://github.com/OvercaffeinatedCAB302/fish-tank)
 **Gamified Task and Pomodoro Manager**
-*Java, JavaFX, SQLite*
+*Java, JavaFX, SQLite (2025)*
 
-- **Collaboratively designed and built a full-stack desktop application** that integrates a gamified task-tracking system with a Pomodoro timer, enabling users to manage productivity through engaging interfaces.
-- Implemented local persistence via SQLite, **reducing app startup time by ~2 seconds** compared to in-memory alternatives by caching frequently accessed task data.
-- Architected a modular MVC structure with separate controller, model, and view layers, helping to **improving code maintainability** and enabling team members to add new features **without merge conflicts, reducing code and avoiding refactoring existing logic**.
+- Collaboratively designed and built a **full-stack desktop application** combining gamified task tracking with a Pomodoro timer.
+- Architected a modular MVC structure with separate controller, model and view layers, so teammates could add features independently without merge conflicts or refactoring shared logic.
+- Implemented local persistence via SQLite, caching frequently accessed task data to reduce startup time.
 
 ### [BeeAware Capstone](https://github.com/JDLanyon/IFB399_BeeAware_Hive_Inspections)
 **Cross-Team Database Plugin**
-*C#, SQL, HTML, CSS, JavaScript*
+*C#, SQL, HTML, CSS, JavaScript (2023)*
 
-- Collaborated with 2 cross-functional capstone teams (5 members total) to build a browser plugin integrating with a beekeeping project's MySQL database to bridge a data visibility gap for end users.
-- Designed SQL queries to securely fetch beehive telemetry data, **reducing query response time by ~60%** through indexed lookups and parameterised queries.
-- Participated in weekly cross-team stand-ups and Git-based code reviews, **delivering all milestones on schedule across a 12-week development cycle**.
-
-### [Rescreetply](https://github.com/JDLanyon/Rescreetply)
-**VR Unity Group Project**
-*Unity, C#, VR*
-
-- Coordinated with 3 teammates using Git feature branching to build a VR zombie survival game, **delivering a playable prototype in 6-week sprint cycles**.
-- Developed enemy AI behaviours using Unity's NavMesh system, **optimising frame rate from 45fps to a stable 72fps** through LOD-based culling.
-- Resolved integration conflicts between parallel development branches, **reducing merge-related bugs by ~25%** compared to previous group projects.
-
-### [VoiceToVideo](https://github.com/JDLanyon/VoiceToVideo)
-**Audio Driven Video Generator**
-*Python, OpenCV, Audio Processing*
-
-- Built a Python utility that maps real-time microphone amplitude to a sequence of video frames, **reducing manual editing effort by ~15 minutes per video** for content creators.
-- Implemented configurable exponential smoothing algorithms, **eliminating frame flicker** at low volume thresholds.
-
-### [PlaytimeTracker](https://github.com/JDLanyon/PlaytimeTracker)
-**Track Steam Playtime Analytics**
-*Python, NumPy, Matplotlib*
-
-- Developed a Python script that queries Steam API data and generates time-series playtime graphs, **enabling users to visualise usage patterns** across multiple gaming sessions.
-- Implemented scheduled data polling via the `schedule` library, **automating data collection** to run on Windows system startup without manual intervention.
+- Worked across two cross-functional capstone teams (five members total) to build a **browser plugin** integrating with a beekeeping project's MySQL database, closing a data visibility gap for end users.
+- Designed SQL queries using indexed lookups and parameterised statements to securely fetch beehive telemetry data.
+- Delivered all milestones on schedule across a **12-week development cycle** with weekly cross-team stand-ups and Git-based code reviews.
 
 ## Education
-### Bachelor of Games & Interactive Environments
-**Queensland University of Technology (QUT) - Final Year**
-*Game Engine Theory, AI for Games, Immersive Environments, High Performance Computing, Visual Communication, Algorithms and Complexity, Systems Design, Capstone Project*
+### Bachelor of Games & Interactive Environments - Software Technologies Major
+**Queensland University of Technology (QUT)**
 
-**Major:** Software Technologies
-**Minor:** Advanced Software Technologies
-**Minor:** Graphic Design
+Software Technologies major, Advanced Software Technologies minor, Graphic Design minor
+
+*Relevant coursework: Algorithms and Complexity, Systems Design, High Performance Computing, Game Engine Theory, AI for Games, Immersive Environments, Visual Communication, Capstone Project*
 
 ## References
 **Alexander Klimson**

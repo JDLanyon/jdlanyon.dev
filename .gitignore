@@ -55,5 +55,10 @@ docs/public/JDLanyon_Cover_Letter.pdf
 # Syncthing
 docs/.stfolder/
 
-# AGENTS
+# AGENTS & Misc
 AGENTS.md
+docs/.vitepress/theme/cover-letter-print.css
+docs/cover-letter.md
+docs/public/JDLanyon_Cover_Letter.pdf
+docs/public/obsidian_symlinks.png
+scripts/build-pdfs.sh

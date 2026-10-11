@@ -22,7 +22,9 @@
     }
   },
   "dependencies": {
+    "@jdlanyon/lotus-library": "file:../lotus-library/jdlanyon-lotus-library-0.1.7.tgz",
     "dotenv": "^17.4.2",
-    "lucide-vue-next": "^1.0.0"
+    "lucide-vue-next": "^1.0.0",
+    "vue-simple-icons": "^7.5.0"
   }
 }

@@ -46,7 +46,7 @@ const showContact = ref(false)
   <Button href="/blog/">Read Blog</Button>
 </div>
 
-<Modal v-if="showContact" @close="showContact = false">
+<Modal :open="showContact" @close="showContact = false">
   <template #header-actions-left>
     <span class="modal-title">Contact</span>
   </template>

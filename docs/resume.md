@@ -5,9 +5,12 @@
 <div class="resume-header">
 
 # Jackson Lanyon
+
 ## ***Software Engineer - Brisbane, Australia***
 
-[linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) - [github.com/JDLanyon](https://github.com/JDLanyon) - [jdlanyon.dev](https://jdlanyon.dev/) - [jlany9@hotmail.com](mailto:jlany9@hotmail.com)
+[linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) - [github.com/JDLanyon](https://github.com/JDLanyon) - [jdlanyon.dev](https://jdlanyon.dev/)
+
+[jlany9@hotmail.com](mailto:jlany9@hotmail.com) - 0401 532 009
 
 </div>
 
@@ -15,9 +18,13 @@
 
 ## Technical Skills
 **Languages:** TypeScript / JavaScript, Python, C#, Java, HTML / CSS, SQL, Shell
+
 **Frameworks & Libraries:** React, Next.js, Vue 3, Vite, VitePress, Node.js, JavaFX, .NET
+
 **Data & APIs:** REST API integration, MySQL, SQLite, Pandas / NumPy, data pipelines
+
 **Tools & Platforms:** Git (GitHub & Forgejo), Docker, Linux (Arch / Debian), systemd, nginx, Cloudflare, GitHub Actions (CI/CD)
+
 **Practices:** Agile & Scrum, Git branching workflows, automated testing, responsive and accessible UI
 
 ## Work Experience
@@ -48,6 +55,12 @@
 - Independently designed, built and shipped a **production website** in Next.js and TypeScript, now deployed to Cloudflare Pages through an automated GitHub Actions workflow.
 - Built a markdown-driven content pipeline with dynamic project routing and modals, and documented the architecture in GitHub issues to plan the roadmap.
 - Engineered responsive, accessible UI with CSS animations, dynamic theming and dark / light mode, and later migrated the app from self-managed hosting to Cloudflare Pages.
+
+<!-- PDF-only page break: balances the resume into two evenly-filled pages.
+     Page 1 = header/skills/work/production web intro + sausytime.com;
+     page 2 = jdlanyon.dev + projects + education + references.
+     Hidden on screen (VitePress). -->
+<div class="page-break"></div>
 
 ### [jdlanyon.dev](https://github.com/JDLanyon/jdlanyon.dev) - Programmer Portfolio
 **Full-Stack Developer (solo)**
@@ -82,18 +95,23 @@ Software Technologies major, Advanced Software Technologies minor, Graphic Desig
 
 *Relevant coursework: Algorithms and Complexity, Systems Design, High Performance Computing, Game Engine Theory, AI for Games, Immersive Environments, Visual Communication, Capstone Project*
 
+<div class="resume-refs">
+
 ## References
+
 **Alexander Klimson**
 
 Engineering Manager - alexander.klimson@aqseptence.com
 
-<div class="print-only">0738 675 562</div>
+<!-- <div class="print-only">0738 675 562</div> -->
 
 **Leighton Cook**
 
 Project Manager & Lead Developer - leightoncook45@gmail.com
 
-<div class="print-only">0490 107 486</div>
+<!-- <div class="print-only">0490 107 486</div> -->
+
+</div>
 
 <div class="no-print" style="text-align: right; margin-bottom: 1rem;">
 <small>Last updated: 2026 - <a target="_blank" href="https://github.com/JDLanyon/jdlanyon.dev/blob/main/docs/resume.md">View source on GitHub</a></small>

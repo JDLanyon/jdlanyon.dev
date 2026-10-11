@@ -44,7 +44,8 @@ const IGNORED_REPOSITORIES = new Set([
   "JDLanyon",
   "IGB200",
   "Mates-Rates-Rent-a-Car",
-  "playtime-tracker"
+  "playtime-tracker",
+  "SadDiscordBot" // GitHub repo name (github.com/JDLanyon/SadDiscordBot)
 ]);
 
 // Phase 0: Read existing state
@@ -137,7 +138,15 @@ const autoResults = [];
 
 // Seed with previously-discovered slugs from "Automatically Fetched" section,
 // so they persist across rebuilds. Filter out any now in IGNORED_REPOSITORIES.
-const ignoredSlugs = new Set([...IGNORED_REPOSITORIES].map(slugFromRepoName));
+// Match ignored repos against the cached slug in several normalised forms:
+// slugFromRepoName() collapses "SadDiscordBot" -> "saddiscordbot", but the
+// cached slug may be the hyphenated "sad-discord-bot", so include both.
+const toWords = s => s.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).join("-");
+const ignoredSlugs = new Set();
+for (const name of IGNORED_REPOSITORIES) {
+  ignoredSlugs.add(slugFromRepoName(name));
+  ignoredSlugs.add(toWords(name));
+}
 const autoSlugsSet = new Set();
 for (const slug of prevAutoSlugs) {
   if (!ignoredSlugs.has(slug)) {

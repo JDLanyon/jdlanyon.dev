@@ -1,13 +1,19 @@
 /**
  * wiki-link-plugin.mjs
  *
- * VitePress markdown plugin that transforms [[slug]] wiki-links
- * into <ProjectCard> components at build time.
+ * VitePress markdown plugin that transforms [[slug]] wiki-links on the
+ * Projects page into a single <CardGrid> per paragraph at build time.
  *
  * Metadata comes from docs/projects/*.md frontmatter.
  *
- * This plugin only runs during the VitePress build - your
- * Obsidian notes keep clean [[wiki-link]] syntax untouched.
+ * <CardGrid> maps each item to a library <Card> and owns ONE shared
+ * <ProjectModal>, so clicking a project card opens its detail modal without
+ * per-card modal state. Cards are modal-only: we intentionally never emit a
+ * card `url`, so a project card can never navigate away from /projects.
+ * See @jdlanyon/lotus-library README (Cards & grids).
+ *
+ * This plugin only runs during the VitePress build - your Obsidian notes keep
+ * clean [[wiki-link]] syntax untouched.
  *
  * Usage in docs/.vitepress/config.ts:
  *   import { wikiLinkPlugin } from '../../scripts/wiki-link-plugin.mjs'
@@ -23,68 +29,62 @@ const __dirname = import.meta.dirname;
 const PROJECTS_DIR = path.resolve(__dirname, "..", "docs", "projects");
 const AUTO_DIR = path.resolve(__dirname, "..", "docs", ".vitepress", "cache", "auto-projects");
 
-/** Metadata about a single project, gathered from frontmatter.
- *  Checks projects dir first, then auto-discovered dir. */
+/** Parse a project's frontmatter into a plain object. */
 function getProjectMeta(slug) {
   for (const dir of [PROJECTS_DIR, AUTO_DIR]) {
     const projectFile = path.join(dir, `${slug}.md`);
-  if (fs.existsSync(projectFile)) {
-    const raw = fs.readFileSync(projectFile, "utf-8");
-    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
-    if (fmMatch) {
-      const fm = {};
-      for (const line of fmMatch[1].split("\n")) {
-        const kv = line.match(/^(\w+):\s*(.+)/);
-        if (!kv) continue;
-        let val = kv[2].trim();
-        if (val.startsWith("[")) {
-          try {
-            val = JSON.parse(val.replace(/'/g, '"'));
-          } catch {
-            val = val.slice(1, -1).split(",").map(s => s.trim().replace(/^["']|["']$/g, ""));
+    if (fs.existsSync(projectFile)) {
+      const raw = fs.readFileSync(projectFile, "utf-8");
+      const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
+      if (fmMatch) {
+        const fm = {};
+        for (const line of fmMatch[1].split("\n")) {
+          const kv = line.match(/^(\w+):\s*(.+)/);
+          if (!kv) continue;
+          let val = kv[2].trim();
+          if (val.startsWith("[")) {
+            try {
+              val = JSON.parse(val.replace(/'/g, '"'));
+            } catch {
+              val = val.slice(1, -1).split(",").map(s => s.trim().replace(/^["']|["']$/g, ""));
+            }
+          } else if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1);
           }
-        } else if (val.startsWith('"') && val.endsWith('"')) {
-          val = val.slice(1, -1);
+          fm[kv[1]] = val;
         }
-        fm[kv[1]] = val;
+        return fm;
       }
-      return fm;
     }
   }
-}
   return {};
 }
 
-/** Build a <ProjectCard /> component string from metadata. */
-function buildCard(slug) {
+/** Build a ProjectCardData item from a slug's frontmatter. */
+function buildItem(slug) {
   const meta = getProjectMeta(slug);
-  const title = meta.title || slug;
-  const tags = meta.tags || [];
-  const repo = meta.repo || "";
-  const url = meta.url || "";
+  const item = {
+    slug,
+    title: meta.title || slug,
+  };
+  // Skip the placeholder description auto-generated for detail pages.
+  if (meta.description && meta.description !== "Project detail page") {
+    item.description = meta.description;
+  }
+  if (Array.isArray(meta.tags) && meta.tags.length > 0) item.tags = meta.tags;
+  if (meta.repo) item.repo = meta.repo;
+  // NOTE: deliberately omit `url`. In CardGrid, a card `url` makes the whole
+  // card navigate externally *instead of* opening the detail modal. Project
+  // cards should ONLY open their modal; external links live inside the modal
+  // and on the project's full page. (See ProjectCardData docs.)
+  // if (meta.url) item.url = meta.url;
+  if (meta.date) item.date = meta.date;
+  return item;
+}
 
-  // Use description from frontmatter if it's a real description,
-  // otherwise leave empty (tags are shown separately on the card).
-  const description = meta.description && meta.description !== "Project detail page"
-    ? meta.description
-    : "";
-
-  let card = `<ProjectCard slug="${slug}" title="${title}"`;
-  card += ` description="${description}"`;
-  if (tags.length > 0) {
-    card += ` :tags='${JSON.stringify(tags)}'`;
-  }
-  if (repo) {
-    card += ` repo="${repo}"`;
-  }
-  if (url) {
-    card += ` url="${url}"`;
-  }
-  if (meta.date) {
-    card += ` date="${meta.date}"`;
-  }
-  card += ` />`;
-  return card;
+/** Serialise an items array for the :items prop (single-quoted, HTML-safe). */
+function serialiseItems(items) {
+  return JSON.stringify(items).replace(/'/g, "&#39;");
 }
 
 export function wikiLinkPlugin(md) {
@@ -99,40 +99,25 @@ export function wikiLinkPlugin(md) {
 
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
+      if (token.type !== "inline" || !token.children) continue;
 
-      if (token.type === "inline" && token.children) {
-        for (let j = 0; j < token.children.length; j++) {
-          const child = token.children[j];
-
-          if (child.type === "text" && child.content) {
-            const replaced = child.content.replace(
-              /\[\[([\w-]+)\]\]/g,
-              (match, slug) => buildCard(slug),
-            );
-
-            if (replaced !== child.content) {
-              const parts = replaced.split(/(<ProjectCard[\s\S]*?\/>)/);
-              const newChildren = [];
-
-              for (const part of parts) {
-                if (!part) continue;
-                if (part.startsWith("<ProjectCard")) {
-                  const htmlToken = new state.Token("html_inline", "", 0);
-                  htmlToken.content = part;
-                  newChildren.push(htmlToken);
-                } else {
-                  const textToken = new state.Token("text", "", 0);
-                  textToken.content = part;
-                  newChildren.push(textToken);
-                }
-              }
-
-              token.children.splice(j, 1, ...newChildren);
-              j += newChildren.length - 1;
-            }
-          }
+      // Collect every [[slug]] in this paragraph, preserving order.
+      const slugs = [];
+      for (const child of token.children) {
+        if (child.type !== "text" || !child.content) continue;
+        for (const m of child.content.matchAll(/\[\[([\w-]+)\]\]/g)) {
+          slugs.push(m[1]);
         }
       }
+      if (slugs.length === 0) continue;
+
+      // Replace the paragraph's children with a single <CardGrid> html_inline.
+      const items = slugs.map(buildItem);
+      const cardGrid = `<CardGrid :items='${serialiseItems(items)}' />`;
+
+      const htmlToken = new state.Token("html_inline", "", 0);
+      htmlToken.content = cardGrid;
+      token.children = [htmlToken];
     }
   });
 }

@@ -4,18 +4,7 @@ description: Get in touch with me via Email, GitHub, LinkedIn and more.
 ---
 
 <script setup>
-import { ref } from 'vue'
-
 const email = 'jlany9@hotmail.com'
-const copied = ref(false)
-
-async function copyEmail() {
-  try {
-    await navigator.clipboard.writeText(email)
-    copied.value = true
-    setTimeout(() => (copied.value = false), 2000)
-  } catch { /* clipboard unavailable in this context */ }
-}
 </script>
 
 # Contact
@@ -27,7 +16,6 @@ I'm always open to talk about software engineering, automation, creative coding,
 I check my **Email** daily, this is the best platform to contact me on.
 
 - <a href="mailto:jlany9@hotmail.com">jlany9@hotmail.com</a>
-<Button @click="copyEmail">{{ copied ? 'Copied!' : 'Copy email' }}</Button>
 <Button :href="`mailto:${email}`">Email me</Button>
 </div>
 

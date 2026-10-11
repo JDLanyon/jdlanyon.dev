@@ -1,5 +1,6 @@
 ---
 title: Task Tank - Gamified Task Manager
+date: "Nov 2025"
 description: Project detail page
 tags: ["Java", "JavaFX", "SQLite"]
 embed_ids: ["nZdhINf1foU"]

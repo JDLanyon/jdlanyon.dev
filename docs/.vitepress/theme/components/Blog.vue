@@ -13,10 +13,10 @@ segments. Supports arbitrary nesting depth (h2 through h6).
         <a class="header-anchor" href="#latest-posts" aria-label='Permalink to "Latest Posts"'>​</a>
       </h2>
       <div class="blog-post-list">
-        <BlogCard
+        <Card
           v-for="post in latestPosts"
           :key="post.url"
-          :url="post.url"
+          :href="post.url"
           :title="post.frontmatter?.title || 'Untitled'"
           :date="post.frontmatter?.date ? formatDate(post.frontmatter.date) : undefined"
           :description="post.frontmatter?.description || undefined"
@@ -152,9 +152,9 @@ const categoryTree = computed(() => {
 
 // @ts-nocheck
 import { defineComponent, h, type VNode } from 'vue'
+import { Card } from '@jdlanyon/lotus-library/vue'
 // @ts-ignore
 import type { PostData } from './blog.data'
-import BlogCard from './BlogCard.vue'
 
 // A single node in the category tree.
 interface TreeNode {
@@ -186,11 +186,11 @@ function formatDate(dateStr: string | Date): string {
 // Once we reach h6 we stay there (clamp via Math.min).
 const HEADING_TAGS = ['h2', 'h3', 'h4', 'h5', 'h6'] as const
 
-// renderPost - creates a VNode tree for a single PostData object, using BlogCard
+// renderPost - creates a VNode tree for a single PostData object, using the library Card
 function renderPost(post: PostData): VNode {
   // Vue's hyperscript - creates virtual DOM nodes
-  return h(BlogCard as any, {
-    url: post.url,
+  return h(Card as any, {
+    href: post.url,
     title: post.frontmatter?.title || 'Untitled',
     date: post.frontmatter?.date ? formatDate(post.frontmatter.date) : undefined,
     description: post.frontmatter?.description || undefined,

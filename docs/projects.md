@@ -1,3 +1,7 @@
+---
+pageClass: projects-wide
+---
+
 # Projects
 
 <p class="subtle">Things I've built, contributed to, and learned from.</p>
@@ -24,5 +28,4 @@
 
 [[forza-winners-record]]
 [[advent-of-code-2025]]
-[[sad-discord-bot]]
 

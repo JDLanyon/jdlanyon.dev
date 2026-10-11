@@ -1,4 +1,7 @@
-:root {
+/* Use `html:root` (element + pseudo-class = 0,1,1) so these tokens beat
+   VitePress's own `:root { --vp-c-bg: #ffffff; ... }` (0,1,0), which is emitted
+   *after* this stylesheet and would otherwise win on a specificity tie. */
+html:root {
   --primary: #111;
   --secondary: #333;
   --background: #eee;
@@ -17,14 +20,45 @@
   --vp-c-divider: var(--border-color);
   --vp-code-bg: var(--background);
   --vp-code-color: var(--primary);
+
+  /* Bind the library's tokens to this theme so components can never drift from
+     the site palette. */
+  --lotus-primary: var(--primary);
+  --lotus-secondary: var(--secondary);
+  --lotus-background: var(--background);
+  --lotus-border-color: var(--border-color);
 }
 
-.dark {
+/* Use `html.dark` (element + class = specificity 0,1,1) so these tokens beat
+   VitePress's own `.dark { --vp-c-bg: #1b1b1f; ... }` (0,1,0), which is emitted
+   *after* this stylesheet and would otherwise win on a specificity tie. */
+html.dark {
   --primary: #eee;
   --secondary: #ccc;
   --background: #111;
   --border-color: #222;
   --lotus-invert: 0;
+
+  /* Re-assert the VitePress tokens in dark mode: VitePress ships its own
+     `.dark { --vp-c-bg: #1b1b1f; ... }`, which would otherwise win and paint
+     page backgrounds a non-palette tone. Re-declaring here keeps the site
+     background (#111) consistent across every page, including the home hero. */
+  --vp-c-bg: var(--background);
+  --vp-c-bg-alt: var(--background);
+  --vp-c-bg-elv: var(--background);
+  --vp-c-bg-soft: var(--background);
+  --vp-c-text-1: var(--primary);
+  --vp-c-text-2: var(--secondary);
+  --vp-c-text-3: #888;
+  --vp-c-border: var(--border-color);
+  --vp-c-divider: var(--border-color);
+  --vp-code-bg: var(--background);
+  --vp-code-color: var(--primary);
+
+  --lotus-primary: var(--primary);
+  --lotus-secondary: var(--secondary);
+  --lotus-background: var(--background);
+  --lotus-border-color: var(--border-color);
 }
 
 body { background: var(--background); color: var(--primary); font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
@@ -39,12 +73,12 @@ h6 { font-size: 1rem; }
 .print-only {
   display: none !important;
 }
-.content a:not(.header-anchor):not(.glitch-link):not(.VPSocialLink):not(.no-icon) {
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon) {
   position: relative;
   display: inline-block;
 }
 
-.content a:not(.header-anchor):not(.glitch-link):not(.VPSocialLink):not(.no-icon)::after {
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon)::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -55,7 +89,24 @@ h6 { font-size: 1rem; }
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.content a:not(.header-anchor):not(.glitch-link):not(.VPSocialLink):not(.no-icon):hover::after { width: 100%; }
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon):hover::after { width: 100%; }
+
+/* Links read as a slightly muted text tone (0.8 opacity) and resolve to full
+   opacity on hover. Colour is unchanged — links are differentiated by opacity,
+   not hue, to keep the monochrome theme intact.
+   Scoped to `.vp-doc` so it beats VitePress's `.vp-doc a { color: brand }`
+   (which otherwise tints links) without resorting to !important. */
+.vp-doc a:not(.header-anchor):not(.VPSocialLink):not(.no-icon),
+.vp-doc a.lotus-glitch-link {
+  color: inherit;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+.vp-doc a:not(.header-anchor):not(.VPSocialLink):not(.no-icon):hover,
+.vp-doc a.lotus-glitch-link:hover,
+.vp-doc a.lotus-glitch-link:focus-visible {
+  opacity: 1;
+}
 
 .VPNavBar { border-bottom: 1px solid var(--border-color); background: var(--background); }
 .VPNavBar .VPNavBarMenuLink, .VPNavBar .VPNavBarMenuGroup .button { color: var(--secondary); }
@@ -139,11 +190,44 @@ h6 { font-size: 1rem; }
 .VPFooter a { color: var(--primary); }
 .VPContent.is-home + .VPFooter { display: none; }
 
-.blog-post-item { border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; }
-.blog-post-item + .blog-post-item { margin-top: 1.5rem; }
+/* Blog listing — single-column stack of library Cards (reads top-to-bottom). */
+.blog-post-list { display: flex; flex-direction: column; gap: 1rem; }
+.blog-post-list .lotus-card { width: 100%; }
 
-/* Spacing between project cards in listings */
-.card + .card { margin-top: 1rem; }
+/* Project grids are library <CardGrid>s; the library ships a sane auto-fill
+   default and leaves layout to the host (README: "Layout is the host's job").
+   Project listings use a roomy mosaic: a generous min column width so card
+   headings stay to 1–2 lines, and a comfortable gutter. Themed locally. */
+.lotus-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 2.5rem;
+}
+.lotus-card-grid .lotus-card { height: 100%; }
+
+/* The projects catalogue needs more horizontal room than VitePress's default
+   prose measure (so cards aren't squeezed into a narrow column). VitePress caps
+   the content via scoped `.VPDoc.has-aside .content-container{max-width:688px}`
+   rules, so we beat that specificity explicitly on the projects page only
+   (pageClass: projects-wide is applied to the root .Layout element). */
+.projects-wide .VPDoc .container,
+.projects-wide .VPDoc .content-container,
+.projects-wide .VPDoc .content {
+  max-width: none;
+}
+.projects-wide .VPDoc.has-aside .content-container.content-container,
+.projects-wide .VPDoc:not(.has-sidebar) .container.container,
+.projects-wide .VPDoc:not(.has-sidebar) .content.content {
+  max-width: none;
+}
+.projects-wide .vp-doc {
+  max-width: min(100%, 80rem);
+  margin: 0 auto;
+}
+@media (min-width: 64rem) {
+  .projects-wide .VPDoc { padding: 0 2rem; }
+}
 
 code { background: var(--vp-c-bg-elv); padding: 0.15em 0.35em; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border-color); }
 pre code { background: transparent; padding: 0; border: none; }
@@ -165,41 +249,6 @@ hr { border-color: var(--border-color); }
   margin: 1rem 0 1.5rem;
 }
 .contact-methods a { text-underline-offset: 2px; }
-.contact-methods .btn {
-  display: inline-flex;
-  margin: 0.5rem 0 0;
-}
-
-/* Shared modal header buttons (rendered via slots, so scoped styles in Modal.vue don't reach them) */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: transparent;
-  border: 1px solid var(--vp-c-border);
-  color: var(--vp-c-text-1);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
-}
-.modal-btn:hover {
-  background: var(--vp-c-text-1);
-  color: var(--vp-c-bg);
-}
-.modal-btn-disabled {
-  opacity: 0.45;
-  cursor: default;
-  pointer-events: none;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.8rem;
-}
-.modal-btn-disabled:hover {
-  background: transparent;
-  color: var(--vp-c-text-1);
-}
 
 .VPNavBar .VPNavBarTitle .logo {
   filter: invert(var(--lotus-invert));
@@ -216,6 +265,14 @@ hr { border-color: var(--border-color); }
 
 .vp-doc._resume { padding: 2rem 1rem 4rem; }
 
+/* Resume page-break marker: pure PDF concern (see resume-print.css). It renders
+   as an empty <div> on the VitePress site, so keep it out of the flow on screen. */
+._resume .page-break { display: none; }
+
+/* References wrapper: only pinned-to-bottom in the PDF (resume-print.css). On
+   screen it is a plain block so the references read inline as authored. */
+._resume .resume-refs { position: static; }
+
 /* Resume contact links — flex row spread across the full content width (screen) */
 ._resume .resume-links,
 .vp-doc .resume-links {
@@ -228,11 +285,23 @@ hr { border-color: var(--border-color); }
 }
 
 ._resume h3 { font-size: 1rem; margin-top: 1.25rem; margin-bottom: 0.15rem; }
-/* Resume header block: centered name/title/location without borders or case changes */
-._resume .vp-doc h2, ._resume h2 {
+
+/* Resume header block: center the name/title/location/links on screen.
+   Scoped to the resume page via the .resume-header wrapper. */
+._resume .resume-header {
+  text-align: center;
+}
+._resume .resume-header h1,
+._resume .resume-header h2,
+._resume .resume-header p {
+  text-align: center;
+}
+/* Header subtitle: no border/case changes, keep it visually close to the name */
+._resume .resume-header h2 {
   text-transform: none;
   border-top: none;
   padding-top: 0;
+  margin-top: 0;
 }
 ._resume h3 + em, ._resume h3 + p em { font-size: 0.8rem; color: var(--secondary); font-style: normal; display: block; margin-bottom: 0.25rem; }
 ._resume li { margin-bottom: 0.3rem; line-height: 1.55; }

@@ -26,7 +26,8 @@ export default defineConfig({
 
   themeConfig: {
     siteTitle: false,
-    logo: '/lotus.png',
+    // Logo is rendered by the theme via <GlitchLink> (see Layout.vue
+    // #nav-bar-title-before), not VitePress's plain `logo` image.
 
     nav: [
       { text: 'Home', link: '/' },

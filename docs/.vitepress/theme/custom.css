@@ -73,12 +73,12 @@ h6 { font-size: 1rem; }
 .print-only {
   display: none !important;
 }
-.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon) {
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.lotus-btn):not(.VPSocialLink):not(.no-icon) {
   position: relative;
   display: inline-block;
 }
 
-.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon)::after {
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.lotus-btn):not(.VPSocialLink):not(.no-icon)::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -89,23 +89,44 @@ h6 { font-size: 1rem; }
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.VPSocialLink):not(.no-icon):hover::after { width: 100%; }
+.content a:not(.header-anchor):not(.glitch-link):not(.lotus-glitch-link):not(.lotus-btn):not(.VPSocialLink):not(.no-icon):hover::after { width: 100%; }
 
 /* Links read as a slightly muted text tone (0.8 opacity) and resolve to full
    opacity on hover. Colour is unchanged — links are differentiated by opacity,
    not hue, to keep the monochrome theme intact.
    Scoped to `.vp-doc` so it beats VitePress's `.vp-doc a { color: brand }`
    (which otherwise tints links) without resorting to !important. */
-.vp-doc a:not(.header-anchor):not(.VPSocialLink):not(.no-icon),
+.vp-doc a:not(.header-anchor):not(.lotus-btn):not(.VPSocialLink):not(.no-icon),
 .vp-doc a.lotus-glitch-link {
   color: inherit;
   opacity: 0.8;
   transition: opacity 0.15s ease;
 }
-.vp-doc a:not(.header-anchor):not(.VPSocialLink):not(.no-icon):hover,
+.vp-doc a:not(.header-anchor):not(.lotus-btn):not(.VPSocialLink):not(.no-icon):hover,
 .vp-doc a.lotus-glitch-link:hover,
 .vp-doc a.lotus-glitch-link:focus-visible {
   opacity: 1;
+}
+
+/* Library <Button> renders an <a> when given `href`. VitePress's default theme
+   ships `.vp-doc a { color: var(--vp-c-brand-1); text-decoration: underline }`,
+   which tints/underlines those button anchors and makes the text unreadable on
+   the hover fill (it is emitted after this stylesheet). `.vp-doc a.lotus-btn`
+   carries one extra class (0,2,1 vs 0,1,1), so it wins on specificity
+   regardless of source order — buttons then look identical whether they render
+   as <button> or <a>. */
+.vp-doc a.lotus-btn {
+  color: var(--lotus-primary);
+  text-decoration: none;
+  opacity: 1;
+}
+.vp-doc a.lotus-btn:hover:not(:disabled),
+.vp-doc a.lotus-btn:focus-visible {
+  color: var(--lotus-background);
+}
+.vp-doc a.lotus-btn--invert-hover:hover:not(:disabled),
+.vp-doc a.lotus-btn--invert-hover:focus-visible {
+  color: var(--lotus-primary);
 }
 
 .VPNavBar { border-bottom: 1px solid var(--border-color); background: var(--background); }
@@ -250,12 +271,30 @@ hr { border-color: var(--border-color); }
 }
 .contact-methods a { text-underline-offset: 2px; }
 
-.VPNavBar .VPNavBarTitle .logo {
-  filter: invert(var(--lotus-invert));
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* Navbar logo: rendered as a library <GlitchLink> in the #nav-bar-title-before
+   slot (see Layout.vue). GlitchLink is CSS-driven and glitches on hover.
+   It renders <a.lotus-glitch-link> > <span.glitch-text-wrap> with a visible
+   .glitch-base img plus absolutely-positioned chroma layers, so we size the
+   base img to 90% of the navbar height and keep the wrapper inline-block.
+   No hover scale — the glitch effect is the interaction. */
+.VPNavBar .VPNavBarTitle .nav-logo {
+  display: inline-flex;
+  align-items: center;
+  height: var(--vp-nav-height);
+  margin-right: 8px;
+  text-decoration: none;
 }
-.VPNavBar .VPNavBarTitle .logo:hover {
-  transform: scale(1.25);
+.VPNavBar .VPNavBarTitle .nav-logo .glitch-text-wrap,
+.VPNavBar .VPNavBarTitle .nav-logo .glitch-base {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+.VPNavBar .VPNavBarTitle .nav-logo img {
+  height: calc(var(--vp-nav-height) * 0.9);
+  width: auto;
+  display: block;
+  filter: invert(var(--lotus-invert));
 }
 
 ::-webkit-scrollbar { width: 6px; }

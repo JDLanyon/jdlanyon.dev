@@ -9,13 +9,7 @@ I build software that looks as good as it runs. Most engineers focus on logic, I
 - **Creative Coding** - Godot, Unity, Frontend, Lua, Motion Graphics
 - **Infrastructure** - Linux servers, Cloudflare, Nginx, GitHub Actions
 
-## How I Work
-
-- **Text-first, async communication** - clear and effective writing with concise communication.
-- **Systems first** - Develop infrastructure before focusing on visuals
-- **Quality over quantity** - 5 targeted applications/week beats 50 spray-and-pray
-
-## Links
+## Quick Links
 
 - <GlitchLink href="https://sausytime.com" text="Design Portfolio" />
 - <GlitchLink href="https://github.com/jdlanyon" text="GitHub" />

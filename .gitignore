@@ -36,7 +36,6 @@ docs/.vitepress/cache/
 
 # VitePress build output
 docs/.vitepress/dist/
-!docs/.vitepress/dist/JDLanyon_Resume.pdf
 
 # Print styles
 docs/.vitepress/theme/cover-letter-print.css

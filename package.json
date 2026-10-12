@@ -2,12 +2,15 @@
   "name": "jdlanyon.dev",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20 <23"
+  },
   "scripts": {
     "dev": "vitepress dev docs",
     "fetch-readmes": "node scripts/fetch-readmes.mjs && node scripts/cleanup-auto.mjs",
-    "build": "node scripts/fetch-readmes.mjs && vitepress build docs && node scripts/cleanup-auto.mjs",
+    "build": "node scripts/fetch-readmes.mjs && node scripts/build-docs.mjs && node scripts/cleanup-auto.mjs",
     "build:pdfs": "bash scripts/build-pdfs.sh",
-    "deploy": "node scripts/fetch-readmes.mjs && vitepress build docs && node scripts/cleanup-auto.mjs && npx wrangler pages deploy docs/.vitepress/dist --project-name=jdlanyon-dev",
+    "deploy": "node scripts/fetch-readmes.mjs && node scripts/build-docs.mjs && node scripts/cleanup-auto.mjs && npx wrangler pages deploy docs/.vitepress/dist --project-name=jdlanyon-dev",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
@@ -22,9 +25,10 @@
     }
   },
   "dependencies": {
-    "@jdlanyon/lotus-library": "file:../lotus-library/jdlanyon-lotus-library-0.1.7.tgz",
+    "@jdlanyon/lotus-library": "^0.2.0",
     "dotenv": "^17.4.2",
     "lucide-vue-next": "^1.0.0",
     "vue-simple-icons": "^7.5.0"
   }
 }
+

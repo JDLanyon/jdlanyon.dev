@@ -10,7 +10,7 @@
 
 [linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) - [github.com/JDLanyon](https://github.com/JDLanyon) - [jdlanyon.dev](https://jdlanyon.dev/)
 
-[jlany9@hotmail.com](mailto:jlany9@hotmail.com) - 0401 532 009
+[jlany9@hotmail.com](mailto:jlany9@hotmail.com)
 
 </div>
 

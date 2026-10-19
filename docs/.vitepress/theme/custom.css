@@ -339,7 +339,6 @@ hr { border-color: var(--border-color); }
 ._resume .resume-header h2 {
   text-transform: none;
   border-top: none;
-  padding-top: 0;
   margin-top: 0;
 }
 ._resume h3 + em, ._resume h3 + p em { font-size: 0.8rem; color: var(--secondary); font-style: normal; display: block; margin-bottom: 0.25rem; }

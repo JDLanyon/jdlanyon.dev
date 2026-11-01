@@ -2,24 +2,50 @@
   <a target="_blank" href="/JDLanyon_Resume.pdf" download class="btn-primary btn-scroll">Download PDF</a>
 </div>
 
-<div class="resume-header">
+<!-- web-view -->
+<div class="resume-header no-print">
 
 # Jackson Lanyon
 
 ## ***Software Engineer - Brisbane, Australia***
 
-[linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) - [github.com/JDLanyon](https://github.com/JDLanyon) - [jdlanyon.dev](https://jdlanyon.dev/)
+[linkedin.com/in/jdlanyon](https://www.linkedin.com/in/jdlanyon/) [github.com/JDLanyon](https://github.com/JDLanyon) [jdlanyon.dev](https://jdlanyon.dev/)
 
 [jlany9@hotmail.com](mailto:jlany9@hotmail.com)
 
 </div>
 
----
+<!-- pdf-view -->
+<div class="resume-header print-only">
+
+<h1>Jackson Lanyon</h1>
+<h2>Software Engineer - Brisbane, Australia</h2>
+
+  <table style="margin: 0 auto; border: 0; border-collapse: separate; border-spacing: 2em 0;">
+    <tr>
+      <td style="border: 0; text-align: center;"><a href="https://www.linkedin.com/in/jdlanyon/">linkedin.com/in/jdlanyon</a></td>
+      <td style="border: 0; text-align: center;"><a href="https://github.com/JDLanyon">github.com/JDLanyon</a></td>
+      <td style="border: 0; text-align: center;"><a href="https://jdlanyon.dev/">jdlanyon.dev</a></td>
+    </tr>
+  </table>
+  <table style="margin: 0 auto; border: 0; border-collapse: separate; border-spacing: 2em 0;">
+    <tr>
+      <td style="border: 0; text-align: center;"><a href="mailto:jlany9@hotmail.com">jlany9@hotmail.com</a></td>
+    </tr>
+  </table>
+</div>
+
+
+## Professional Summary
+
+Frontend-focused software engineer with production experience building & deploying applications in React, Next.js, TypeScript and Vue 3. Strong in algorithms, databases and system design, with a graphic-design background with a vision for polished, accessible UI. Looking forward to frontend or full-stack opportunities in Brisbane.
 
 ## Technical Skills
 **Languages:** TypeScript / JavaScript, Python, C#, Java, HTML / CSS, SQL, Shell
 
 **Frameworks & Libraries:** React, Next.js, Vue 3, Vite, VitePress, Node.js, JavaFX, .NET
+
+**Testing:** Vitest and Playwright (familiar), Selenium and Katalon (professional experience)
 
 **Data & APIs:** REST API integration, MySQL, SQLite, Pandas / NumPy, data pipelines
 
@@ -44,6 +70,7 @@
 - Implemented automated testing frameworks using **Katalon and Selenium with Java**, reducing regression test execution time and accelerating sprint delivery cycles.
 - Transitioned legacy test scripts from Katalon's `.groovy` files to **Selenium-based Java tests** with two other engineers, avoiding a complete rewrite and improving long-term test maintainability.
 - Collaborated within an Agile team using **Git, Jira and Microsoft Teams**, helping ensure secure releases for staff and students through daily stand-ups and sprint reviews.
+
 
 ## Production Web Development
 > Ongoing independent engineering, self-directed alongside full-time study. All of the below is publicly verifiable on GitHub and deployed live.
@@ -101,15 +128,15 @@ Software Technologies major, Advanced Software Technologies minor, Graphic Desig
 
 **Alexander Klimson**
 
-Engineering Manager - alexander.klimson@aqseptence.com
+Engineering Manager
 
-<!-- <div class="print-only">0738 675 562</div> -->
+[alexander.klimson@aqseptence.com](mailto:alexander.klimson@aqseptence.com)
 
 **Leighton Cook**
 
-Project Manager & Lead Developer - leightoncook45@gmail.com
+Project Manager & Lead Developer
 
-<!-- <div class="print-only">0490 107 486</div> -->
+[leightoncook45@gmail.com](mailto:leightoncook45@gmail.com)
 
 </div>
 

@@ -8,7 +8,6 @@
 <script setup>
 import Blog from '../.vitepress/theme/components/Blog.vue'
 </script>
----
 
 > *All posts are written in markdown and published to GitHub Pages*
 

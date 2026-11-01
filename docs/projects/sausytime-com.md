@@ -1,6 +1,6 @@
 ---
 title: sausytime.com - Designer Portfolio
-date: "Jun 2026"
+date: "2026"
 description: Project detail page
 tags: ["Next.js", "TypeScript", "Cloudflare", "Self-hosted"]
 repo: https://github.com/JDLanyon/sausytime.com

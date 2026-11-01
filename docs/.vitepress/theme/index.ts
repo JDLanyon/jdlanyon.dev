@@ -32,6 +32,7 @@ import {
 
 // --- Local components (project/blog-specific, no library equivalent) --------
 import Blog from './components/Blog.vue'
+import ColourSwatch from './components/ColourSwatch.vue'
 import ProjectFullPage from './components/ProjectFullPage.vue'
 import YouTubeEmbeds from './components/YouTubeEmbeds.vue'
 
@@ -67,7 +68,10 @@ export default {
 
     // Local components
     app.component('Blog', Blog)
+    // Emitted by markdown for backticked hex codes (see markdown.config).
+    app.component('ColourSwatch', ColourSwatch)
     app.component('ProjectFullPage', ProjectFullPage)
     app.component('YouTubeEmbeds', YouTubeEmbeds)
   },
 }
+

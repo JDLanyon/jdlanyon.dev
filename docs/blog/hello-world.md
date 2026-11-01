@@ -6,16 +6,12 @@ tags: ["meta", "update"]
 ---
 
 # Hello World
-
-Welcome to my blog! This is a test post to demonstrate the format.
+Thanks for visiting my blog!
 
 ## What to Expect
-
-I'll be writing about various topics here, including:
+More posts coming end of 2026 👀
 
 - Web development
 - Game development
 - Personal projects
 - Tech rambling
-
-Stay tuned for more future content :>

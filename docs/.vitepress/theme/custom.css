@@ -69,6 +69,52 @@ h4 { font-size: 1.563rem; }
 h5 { font-size: 1.25rem; }
 h6 { font-size: 1rem; }
 
+/* "On this page": long headings wrap onto multiple lines.
+   VitePress renders .outline-link as an inline-block with `max-width: none` and
+   `white-space: nowrap` inside a fixed 224px rail, so a long label sizes to its
+   text (272px) and is clipped by .aside-container's overflow-x: hidden.
+   Wrapping needs both permission to wrap and a width to wrap against.
+   `!important` is needed because VitePress scopes this rule with a per-build
+   attribute selector that a plain `.VPDocAsideOutline .outline-link` cannot beat. */
+.VPDocAsideOutline .outline-link {
+  display: block !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+  padding: 4px 0 !important;
+}
+
+/* Outline labels wrap, so they must not use the gradient ::after bar below:
+   that bar is absolute at bottom: 0, i.e. one line under the whole box, which
+   reads as underlining only the final line. Real text-decoration follows every
+   line box. The bar is dropped and an underline used instead. */
+.VPDocAsideOutline .outline-link {
+  text-decoration: none;
+}
+.VPDocAsideOutline .outline-link:hover,
+.VPDocAsideOutline .outline-link:focus-visible,
+.VPDocAsideOutline .outline-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--primary);
+}
+.VPDocAsideOutline .outline-link::after {
+  content: none !important;
+}
+
+/* Library <Card> renders its root as <a class="lotus-card">, so VitePress's
+   `.vp-doc a { text-decoration: underline }` underlines the whole card —
+   title and description alike. A card is a surface with its own hover
+   affordance, not prose, so it opts out of prose link decoration. The library
+   ships no link styling of its own so hosts can make this call. */
+.vp-doc a.lotus-card {
+  text-decoration: none;
+}
+
 /* don't display print only documents */
 .print-only {
   display: none !important;
@@ -253,6 +299,101 @@ h6 { font-size: 1rem; }
 code { background: var(--vp-c-bg-elv); padding: 0.15em 0.35em; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border-color); }
 pre code { background: transparent; padding: 0; border: none; }
 
+/* --- Colour tokens ---------------------------------------------------------
+   Emitted by scripts/colour-plugin.mjs: a backticked hex (`#e8cb91`) renders as
+   <ColourSwatch>, passing the colour in as --colour.
+
+   The token is prose, not an object: the hex reads in its own colour over a
+   faint tint/shade of it so it stays legible in both themes. Hover lifts the
+   token (text and background are one element, so they move together). No
+   tooltip on hover; the "Copied!" tip is click-only (see ColourSwatch.vue). */
+
+.vp-colour {
+  /* Positioned so the click-only tip can anchor to it, and inline so the token
+     sits in the text flow rather than becoming a block. */
+  position: relative;
+  display: inline;
+  vertical-align: baseline;
+
+  /* Reset the native <button>: this is a colour token, not a control. */
+  margin: 0;
+  border: 0;
+  border-radius: 3px;
+  padding: 0 0.2em;
+  font: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+
+  /* The background is a wash of the token's own colour, so it always reads as
+     part of the surrounding text colour-wise. */
+  background: color-mix(in srgb, var(--colour) 18%, transparent);
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  /* Faint ring in the token colour: enough to look interactive, quieter than a
+     full border. */
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--colour) 30%, transparent);
+}
+
+/* Popout: text and background lift together (they are the same box). */
+.vp-colour:hover {
+  background: color-mix(in srgb, var(--colour) 28%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--colour) 45%, transparent);
+  transform: translateY(-1px);
+}
+
+.vp-colour:active {
+  transform: translateY(0);
+}
+
+/* Light theme: pale colours become the *text* colour (dark glyph on a wash);
+   everything else reads in its own colour, which already contrasts on #eee. */
+html:not(.dark) .vp-colour {
+  color: var(--colour);
+}
+html:not(.dark) .vp-colour--light {
+  color: color-mix(in srgb, var(--colour) 60%, #111);
+}
+
+/* Dark theme mirrors that: dark colours become the text colour, bright colours
+   are knocked back toward the page so they do not glare. */
+html.dark .vp-colour {
+  color: var(--colour);
+}
+html.dark .vp-colour--dark {
+  color: color-mix(in srgb, var(--colour) 60%, #eee);
+}
+
+/* Click-only confirmation. Same markup the library Tooltip renders, so it
+   inherits that look; centred above the token and raised well clear of code
+   blocks / sticky headers. Shown only while .is-copied is set. */
+.vp-colour__tip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  z-index: 100;
+  margin-bottom: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-style: normal;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 0.25rem);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.vp-colour.is-copied .vp-colour__tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 blockquote { border-left: 3px solid var(--border-color); color: var(--secondary); }
 
 table { border-collapse: collapse; }
@@ -372,4 +513,22 @@ hr { border-color: var(--border-color); }
   border-top: none;
   padding-top: 0;
   margin-top: 0;
+}
+
+/* Blog posts: no rule above section headings.
+   VitePress ships `.vp-doc h2 { margin-top: 48px; border-top: 1px solid
+   var(--vp-c-divider); padding-top: 24px }`, so every <h2> draws a 1px line
+   above it. These posts use h2 for ordinary sections, where that divider reads
+   as an unexplained horizontal rule. Drop the border and the padding that
+   existed only to hold it off the line, and keep a smaller top margin so
+   headings still breathe.
+   Scoped to blog posts via the class VitePress derives from the file path
+   (the prose div is `vp-doc _blog_<slug>`), so docs pages keep the default.
+   Attribute selector + element is (0,1,1) like VitePress's `.vp-doc h2`, which
+   would lose on source order — hence the extra `.vp-doc` qualifier for (0,2,1). */
+.vp-doc[class*="_blog_"] h2,
+[class*="_blog_"].vp-doc h2 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 2.5rem;
 }

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { wikiLinkPlugin } from '../../scripts/wiki-link-plugin.mjs'
 import { glitchLinkPlugin } from '../../scripts/glitch-link-plugin.mjs'
+import { colourPlugin } from '../../scripts/colour-plugin.mjs'
 
 export default defineConfig({
   title: 'Jackson Lanyon',
@@ -13,6 +14,7 @@ export default defineConfig({
     config: (md) => {
       md.use(wikiLinkPlugin)
       md.use(glitchLinkPlugin)
+      md.use(colourPlugin)
     },
   },
 

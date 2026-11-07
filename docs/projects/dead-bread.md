@@ -1,7 +1,7 @@
 ---
 title: Dead Bread (VR) - Zombie Survival
 date: "Jun 2024"
-description: Project detail page
+description: Co-op VR zombie survival game - resupply runs through a supermarket
 tags: ["Unity", "C#", "VR"]
 embed_ids: ["BzaEK7LACHo"]
 repo: https://github.com/JDLanyon/Rescreetply

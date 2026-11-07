@@ -25,8 +25,8 @@ dist-ssr
 # Obsidian configs folder
 docs/.obsidian/
 
-# Scripts
-scripts/
+# Shell Scripts
+scripts/*.sh
 
 # Auto-discovered GitHub readmes (build artifacts)
 docs/.vitepress/cache/auto-projects/
@@ -48,6 +48,9 @@ docs/public/JDLanyon_Cover_Letter.pdf
 # Environment variables
 .env
 
+# Private resume master (contains phone numbers - never commit)
+.resume/
+
 # Cloudflare Wrangler
 .wrangler/
 
@@ -61,3 +64,7 @@ docs/cover-letter.md
 docs/public/JDLanyon_Cover_Letter.pdf
 docs/public/obsidian_symlinks.png
 scripts/build-pdfs.sh
+
+# NOTE: docs/resume.md and docs/public/JDLanyon_Resume.pdf are intentionally
+# NOT ignored - they are the sanitised public copies and must stay tracked for
+# VitePress to render the resume page. The private master lives in .resume/.

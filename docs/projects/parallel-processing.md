@@ -1,6 +1,6 @@
 ---
 title: Parallel Processing Analysis - Marching Cubes
-description: Project detail page
+description: Rigorous performance analysis of marching cubes using C# job systems
 tags: ["Unity", "C#", "Performance"]
 ---
 

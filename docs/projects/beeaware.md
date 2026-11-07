@@ -1,7 +1,7 @@
 ---
 title: BeeAware Extension - Beekeeping Database Plugin
 date: "Oct 2023"
-description: Project detail page
+description: Beekeeping hive-inspection plugin adding CRUD data tables to the BeeAware platform
 tags: ["C#", "SQL", "HTML", "CSS", "JavaScript"]
 repo: https://github.com/JDLanyon/IFB399_BeeAware_Hive_Inspections
 ---

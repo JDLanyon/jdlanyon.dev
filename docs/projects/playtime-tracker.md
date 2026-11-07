@@ -1,6 +1,6 @@
 ---
 title: playtime-tracker
-description: Project detail page
+description: Python tool that records your Steam play time for a chosen game
 url: ""
 ---
 

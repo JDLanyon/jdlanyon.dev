@@ -53,6 +53,7 @@ npm run preview    # preview the production build
 - **CI/CD pipeline** - GitHub Actions builds the site and deploys to Cloudflare Pages in ~2 minutes fully automatically.
 - **Monochromatic theme** - Light and Dark modes via CSS custom properties. Minimal, intentional, high contrast.
 - **Wiki-style links** - `[[slug]]` syntax (like Obsidian Notes) creates internal links using `<GlitchLink>` at build time via `scripts/glitch-link-plugin.mjs`.
+- **Colour tokens** - a backticked hex code (`#e8cb91`) renders inline as that colour, legible in light and dark themes. Clicking copies the hex to the clipboard, confirmed with a "Copied!" tooltip. Emitted at build time via `scripts/colour-plugin.mjs`, rendered by `<ColourSwatch>`.
 
 
 ### Structure
@@ -77,12 +78,13 @@ npm run preview    # preview the production build
 │           ├── custom.css       # light/dark, layout, glitch fx, scrollbar
 │           ├── resume-print.css # print styles
 │           ├── shims-vue.d.ts   # TS module declarations for .vue
-│           └── components/      # 12 Vue components
+│           └── components/      # Vue components
 │               ├── BackToTop.vue
 │               ├── Blog.vue
 │               ├── BlogCard.vue
 │               ├── Button.vue
 │               ├── Card.vue
+│               ├── ColourSwatch.vue
 │               ├── GlitchText.vue
 │               ├── GlitchImage.vue
 │               ├── GlitchLink.vue
@@ -95,6 +97,7 @@ npm run preview    # preview the production build
 │   ├── fetch-readmes.mjs     # fetches GitHub READMEs for project pages
 │   ├── cleanup-auto.mjs      # cleans auto-discovered project pages after build
 │   ├── glitch-link-plugin.mjs # markdown-it plugin: [text](url) → <GlitchLink>
+│   ├── colour-plugin.mjs     # markdown-it plugin: `#hex` → <ColourSwatch>
 │   └── wiki-link-plugin.mjs  # markdown-it plugin: [[slug]] → wiki links
 ├── .github/workflows/
 │       └── deploy.yml    # build site, deploy to Cloudflare's edge network
@@ -121,9 +124,24 @@ npm run preview    # preview the production build
 | `<ProjectFullPage>` | Standalone full-page layout for direct URL visits to `/projects/:slug`. |
 | `<Blog>` | Auto-discovers Markdown posts via `import.meta.glob`, extracts frontmatter, sorts by date descending. |
 | `<BackToTop>` | IntersectionObserver-based scroll-to-top button. Only shows when page is scrollable and footer is in view. Hides during open modals. |
+| `<ColourSwatch>` | Inline colour token emitted by `scripts/colour-plugin.mjs`. Click copies the hex (Clipboard API with a legacy fallback) and shows a click-only "Copied!" tooltip. |
 | `<YouTubeEmbeds>` | Renders responsive YouTube iframes from frontmatter `video` field. |
 
 All registered globally and usable in any `.md` file with regular HTML.
+
+#### Colour tokens in markdown
+
+Any inline code that is *only* a hex code becomes a colour token, so colours
+read as part of the prose (and work in headings, tables and lists too):
+
+````md
+The brand orange is `#e8cb91`, the ink is `#0f172a`.
+````
+
+The hex is shown in its own colour over a faint wash of it, adjusted per theme
+so it stays legible. Hover lifts the token; clicking copies the hex. Fragments
+like `https://example.com/#foo` stay plain code, and hexes inside links are left
+alone (a clickable token nested in an anchor would be invalid HTML).
 
 
 ### Theme

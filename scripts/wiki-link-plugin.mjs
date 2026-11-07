@@ -6,6 +6,13 @@
  *
  * Metadata comes from docs/projects/*.md frontmatter.
  *
+ * Thumbnails are convention-first so Obsidian stays terse — see
+ * `resolveThumbnail` below. Put the image at
+ * `docs/public/projects/<slug>/thumbnail.png` and it appears on the card with
+ * NO frontmatter at all. Override with `thumbnail: other.png` (same folder) or
+ * `thumbnail: /absolute-or-remote.png`. If no file exists the card simply has
+ * no media area (no empty box).
+ *
  * <CardGrid> maps each item to a library <Card> and owns ONE shared
  * <ProjectModal>, so clicking a project card opens its detail modal without
  * per-card modal state. Cards are modal-only: we intentionally never emit a
@@ -28,6 +35,10 @@ import path from "path";
 const __dirname = import.meta.dirname;
 const PROJECTS_DIR = path.resolve(__dirname, "..", "docs", "projects");
 const AUTO_DIR = path.resolve(__dirname, "..", "docs", ".vitepress", "cache", "auto-projects");
+const PUBLIC_DIR = path.resolve(__dirname, "..", "docs", "public");
+
+/** Default thumbnail filename inside a project's asset folder. */
+const DEFAULT_THUMBNAIL = "thumbnail.png";
 
 /** Parse a project's frontmatter into a plain object. */
 function getProjectMeta(slug) {
@@ -60,6 +71,40 @@ function getProjectMeta(slug) {
   return {};
 }
 
+/**
+ * Resolve a card thumbnail URL, or `undefined` when there is nothing to show.
+ *
+ * Frontmatter may give:
+ *   - `thumbnail: https://…` / `thumbnail: /absolute/path.png` → used verbatim
+ *     (no disk check: it is the author's explicit choice, possibly remote).
+ *   - `thumbnail: some-file.png` → resolved inside the project's own asset
+ *     folder, `/projects/<slug>/some-file.png`.
+ *   - nothing → convention: `/projects/<slug>/thumbnail.png`.
+ *
+ * Convention/explicit-filename candidates are only returned if the file
+ * actually exists in `docs/public`, because a missing file still renders a
+ * full-size empty media box (`.lotus-card-media` has a fixed aspect-ratio and
+ * a background colour). Returning `undefined` keeps `Card.mediaSrc` empty so
+ * the media area collapses entirely — the graceful "no thumbnail" case.
+ */
+function resolveThumbnail(slug, meta) {
+  const thumb = typeof meta.thumbnail === "string" ? meta.thumbnail.trim() : "";
+
+  // Absolute or remote URL: trust the author, no disk check.
+  if (thumb && (/^(https?:)?\/\//.test(thumb) || thumb.startsWith("/"))) {
+    return thumb;
+  }
+
+  const dir = path.posix.join("/projects", slug);
+  const candidates = thumb ? [thumb] : [DEFAULT_THUMBNAIL];
+
+  for (const file of candidates) {
+    const url = path.posix.join(dir, file);
+    if (fs.existsSync(path.join(PUBLIC_DIR, url))) return url;
+  }
+  return undefined;
+}
+
 /** Build a ProjectCardData item from a slug's frontmatter. */
 function buildItem(slug) {
   const meta = getProjectMeta(slug);
@@ -79,6 +124,10 @@ function buildItem(slug) {
   // and on the project's full page. (See ProjectCardData docs.)
   // if (meta.url) item.url = meta.url;
   if (meta.date) item.date = meta.date;
+  // Single `thumbnail` key. Omit the prop entirely when nothing resolves so
+  // the Card collapses its media area instead of showing an empty box.
+  const thumbnail = resolveThumbnail(slug, meta);
+  if (thumbnail) item.thumbnail = thumbnail;
   return item;
 }
 

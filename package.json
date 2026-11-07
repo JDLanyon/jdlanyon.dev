@@ -1,6 +1,6 @@
 {
   "name": "jdlanyon.dev",
-  "private": true,
+  "private": false,
   "type": "module",
   "engines": {
     "node": ">=20 <23"
@@ -16,13 +16,6 @@
   "devDependencies": {
     "vitepress": "^1.6.4",
     "vue": "^3.5.38"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
   },
   "dependencies": {
     "@jdlanyon/lotus-library": "^0.2.0",

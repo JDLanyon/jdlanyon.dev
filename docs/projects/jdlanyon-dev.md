@@ -1,7 +1,7 @@
 ---
 title: jdlanyon.dev - Programmer Portfolio
-date: "2026"
-description: Project detail page
+date: "Nov 2026"
+description: This portfolio - static VitePress site with a custom Vue component library
 tags: ["VitePress", "Vue", "TypeScript", "GitHub Actions", "Markdown"]
 repo: https://github.com/JDLanyon/jdlanyon.dev
 url: "https://jdlanyon.dev"

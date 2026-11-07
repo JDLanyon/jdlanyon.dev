@@ -1,7 +1,7 @@
 ---
 title: VoiceToVideo - Audio Driven Video Generator
 date: "Jan 2022"
-description: Project detail page
+description: Audio-driven webcam replacement that swaps stills in time with your voice
 tags: ["Python", "OpenCV", "Audio Processing"]
 repo: https://github.com/JDLanyon/VoiceToVideo
 ---

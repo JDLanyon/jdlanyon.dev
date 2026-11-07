@@ -1,7 +1,7 @@
 ---
 title: Slime Arcade - Slime Pet Simulator
 date: "Oct 2024"
-description: Project detail page
+description: Arcade-themed slime pet simulator built in Godot
 tags: ["Godot", "GDScript"]
 embed_ids: ["j9XfWkBNZXA"]
 repo: https://github.com/JDLanyon/slimearcade

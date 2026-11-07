@@ -1,7 +1,7 @@
 ---
 title: Task Tank - Gamified Task Manager
 date: "Nov 2025"
-description: Project detail page
+description: Gamified task manager and Pomodoro timer with a virtual fish tank
 tags: ["Java", "JavaFX", "SQLite"]
 embed_ids: ["nZdhINf1foU"]
 repo: https://github.com/OvercaffeinatedCAB302/fish-tank

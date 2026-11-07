@@ -248,6 +248,21 @@ h6 { font-size: 1rem; }
 
 .btn-primary:hover, .btn-scroll:hover { transform: translateY(-8px); background: var(--primary); color: var(--background) !important; border-color: var(--primary); }
 
+.VPDoc .container,
+.VPDoc .content-container,
+.VPDoc .content {
+  max-width: none;
+}
+.VPDoc.has-aside .content-container.content-container.content-container,
+.VPDoc:not(.has-sidebar) .container.container.container,
+.VPDoc:not(.has-sidebar) .content.content.content {
+  max-width: none;
+}
+.vp-doc {
+  max-width: min(100%, 80rem);
+  margin: 0 auto;
+}
+
 .VPSidebar { background: var(--background); border-right: 1px solid var(--border-color); }
 .VPSidebarItem .item .link { color: var(--secondary); }
 .VPSidebarItem .item .link:hover, .VPSidebarItem .item .link.active { color: var(--primary); }

@@ -48,6 +48,9 @@ docs/public/JDLanyon_Cover_Letter.pdf
 # Environment variables
 .env
 
+# Private resume master (contains phone numbers - never commit)
+.resume/
+
 # Cloudflare Wrangler
 .wrangler/
 
@@ -62,5 +65,6 @@ docs/public/JDLanyon_Cover_Letter.pdf
 docs/public/obsidian_symlinks.png
 scripts/build-pdfs.sh
 
-docs/resume.md
-docs/public/JDLanyon_Resume.pdf
+# NOTE: docs/resume.md and docs/public/JDLanyon_Resume.pdf are intentionally
+# NOT ignored - they are the sanitised public copies and must stay tracked for
+# VitePress to render the resume page. The private master lives in .resume/.

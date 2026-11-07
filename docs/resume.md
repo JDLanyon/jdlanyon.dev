@@ -35,7 +35,6 @@
   </table>
 </div>
 
-
 ## Professional Summary
 
 Frontend-focused software engineer with production experience building & deploying applications in React, Next.js, TypeScript and Vue 3. Strong in algorithms, databases and system design, with a graphic-design background with a vision for polished, accessible UI. Looking forward to frontend or full-stack opportunities in Brisbane.
@@ -70,7 +69,6 @@ Frontend-focused software engineer with production experience building & deployi
 - Implemented automated testing frameworks using **Katalon and Selenium with Java**, reducing regression test execution time and accelerating sprint delivery cycles.
 - Transitioned legacy test scripts from Katalon's `.groovy` files to **Selenium-based Java tests** with two other engineers, avoiding a complete rewrite and improving long-term test maintainability.
 - Collaborated within an Agile team using **Git, Jira and Microsoft Teams**, helping ensure secure releases for staff and students through daily stand-ups and sprint reviews.
-
 
 ## Production Web Development
 > Ongoing independent engineering, self-directed alongside full-time study. All of the below is publicly verifiable on GitHub and deployed live.
@@ -141,5 +139,5 @@ Project Manager & Lead Developer
 </div>
 
 <div class="no-print" style="text-align: right; margin-bottom: 1rem;">
-<small>Last updated: 2026 - <a target="_blank" href="https://github.com/JDLanyon/jdlanyon.dev/blob/main/docs/resume.md">View source on GitHub</a></small>
+<small>Last updated: 2026</small>
 </div>
